@@ -9,6 +9,8 @@ let numbers = document.getElementsByClassName("number");
 
 
 
+let gains = 5;
+
 for(let i = 0; i < numbers.length; i++){
     $(".number").on('click', () => {
         $(".numbers").css('background', 'red');
@@ -31,12 +33,18 @@ for(let i = 1; i < 13; i++){
 let submit = document.querySelector('.submitbtn');
 
 $('#submitbtn').on('click', function() {
+    gains = gains - 1;
     randNums.innerText = " ";
     starscont.innerText = " ";
     matchingNums = [];
     matchingStars = [];
     
-
+    if(pickednums.length == 0){
+        alert("You need to pick 5 numbers!");
+    }
+    else if(pickedstars.length == 0){
+        alert("You need to pick 2 stars!");
+    }
 
     // Random Numbers 
     const nums = new Array();
@@ -86,9 +94,14 @@ $('#submitbtn').on('click', function() {
     if(matchingNums.length == 0){
         $(".message").html("<div class='Fail'>No Matching Numbers! Better Luck next time.</div>"); 
     }
-    if(matchingNums != 0){
-        $(".message").html(`<div class='sucess'> The matching numbers are: ${matchingNums};`);
+    else if(matchingNums.length === 1){
+        $(".message").html(`<div class='sucess'> You guessed ${matchingNums.length} number! The matching number is: ${matchingNums};`);
     }
+    else if(matchingNums.length != 0){
+        $(".message").html(`<div class='sucess'> You guessed ${matchingNums.length} numbers! The matching numbers are: ${matchingNums};`);
+    };
+
+    console.log(matchingNums.length)
     
 
 
@@ -102,9 +115,49 @@ $('#submitbtn').on('click', function() {
     if(matchingStars.length == 0){
         $(".message").append("<div class='Fail'>No Matching Numbers! Better Luck next time.</div>");
     }
-    if(matchingStars != 0){
-        $(".message").append(`<div class='sucess'> The matching numbers are: ${matchingStars};`);
-    }; 
+    else if(matchingStars.length == 1){
+        $(".message").append(`<div class='sucess'> You guessed ${matchingStars.length} star! The matching star is: ${matchingStars};`);
+    }
+    else if(matchingStars.length != 0){
+        $(".message").append(`<div class='sucess'> You guessed ${matchingStars.length} stars! The matching numbers are: ${matchingStars};`);
+    };
+
+    let rightnums = matchingNums.length * 2;
+    let rightstars = matchingStars.length * 5;
+    gains = gains + (rightstars + rightnums);
+    console.log(rightnums);
+
+    if(rightnums == 5 & rightstars == 2){
+        gains = gains + 1000;
+    }
+    
+    // let gains = (rightnums * 5) + (rightstars * 10);
+
+    // switch(rightnums, rightstars) {
+    //     case  1, 0:
+    //         $(".message").append(`<div class='sucess'> You guessed ${rightnums} number! Won 5€;`);
+    //         gains = +gains + 1;
+    //         break;
+
+    //     case 2:
+    //         $(".message").append(`<div class='sucess'> You guessed ${rightnums} numbers! Won 10€;`);
+    //         gains = +gains + 5;
+    //         break;
+        
+    //     case 3:
+    //         $(".message").append(`<div class='sucess'> You guessed ${rightnums} numbers! Won 15€;`);7
+    //         break;
+        
+    //     case 4:
+    //         $(".message").append(`<div class='sucess'> You guessed ${rightnums} numbers! Won 20€;`);7
+    //         break;
+        
+    //     case 5:
+    //         $(".message").append(`<div class='sucess'> You guessed ${rightnums} numbers! Won 25€;`);7
+    //         break;
+    // }
+
+    $('.accountbalance').html(`<div class="balance">Balance: <br> <span class="€">${gains}</span> Dogecoins</div>`);
 }); 
 
 

@@ -162,3 +162,19 @@ label{
     margin-top: 25px;
     margin-bottom: 25px;
 }
+
+.balance {
+    position: absolute;
+    top: 0px;
+    right: -1px;
+    font-size: 26px;
+    font-family: fantasy;
+    width: 175px;
+    height: 72px;
+    border: 2px solid black;
+    text-align: center;
+}
+
+.€ {
+    color: red;
+}
