@@ -3,6 +3,7 @@ html {
     background-repeat: ; */
     background: rgb(190,128,13);
     background: linear-gradient(90deg, rgba(190,128,13,0.8799894957983193) 0%, rgba(242,169,90,1) 33%, rgba(255,176,2,0.7259278711484594) 100%);
+    overflow: hidden;
 }
 
 
@@ -63,6 +64,7 @@ main{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    width: 632px;
 }
 
 .randStars {
@@ -153,7 +155,7 @@ label{
     background-position: center;
     background-size: 75px;
     background-color: rgb(117, 117, 117);
-    color: white;
+    /* color: rgb(77, 255, 71); */
 }
 
 .buttons{

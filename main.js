@@ -33,6 +33,7 @@ for(let i = 1; i < 13; i++){
 let submit = document.querySelector('.submitbtn');
 
 $('#submitbtn').on('click', function() {
+    $('.instructions').css('display', 'none');
     gains = gains - 1;
     randNums.innerText = " ";
     starscont.innerText = " ";
@@ -41,9 +42,11 @@ $('#submitbtn').on('click', function() {
     
     if(pickednums.length == 0){
         alert("You need to pick 5 numbers!");
+        return;
     }
     else if(pickedstars.length == 0){
         alert("You need to pick 2 stars!");
+        return;
     }
 
     // Random Numbers 
@@ -196,8 +199,15 @@ $(".inputStars").on("click", "label", function(e) {
   var goToParent = $(this).parents(".inputStars");
   var getInputRadio = goToParent.find("input[id = " + getValue + "]");
   let starid = getInputRadio.attr("id");
-  pickedstars.push(parseInt(starid))
-  $(this).addClass("checked");
+  if(!pickedstars.includes($(this))){
+    pickedstars.push(parseInt(starid))
+    $(this).addClass("checked");
+}
+else {
+    alert("You already picked that number, insert another one!");
+  }
+
+  
 //   $(this).text("⭐")
   console.log(pickedstars)
 
@@ -215,8 +225,8 @@ $(".inputStars").on("click", "label", function(e) {
 });
 
 $(".reset").on("click", () => {
-    pickednums = [ ];
-    pickedstars = [ ];
+    pickednums = [];
+    pickedstars = [];
     $("label").removeClass("checked");
     $("number").css("background-image", "none");
     $("number").css("color", "black");
@@ -224,11 +234,14 @@ $(".reset").on("click", () => {
     
 });
 
-// let btn = document.querySelector('.btn');
-// let count = document.querySelector('.count');
-// let clickCount = 0;
-// btn.addEventListener('click', () => {
-//     clickCount++;
-//     console.log("The click count is: " + clickCount);
-//     count.innerHTML = `You have clicked the button ${clickCount} times!`
-// });
+// if ($('.instructions').show()){
+//     $('.numbers').hide();
+// }
+
+// else if ($('.numbers').show()){
+//     $('.instructions').hide();
+// }
+
+// // else {
+    
+// }
