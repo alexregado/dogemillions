@@ -1,8 +1,5 @@
 html {
-    /* background-image: url("background.jpg");
-    background-repeat: ; */
-    background: rgb(190,128,13);
-    background: linear-gradient(90deg, rgba(190,128,13,0.8799894957983193) 0%, rgba(242,169,90,1) 33%, rgba(255,176,2,0.7259278711484594) 100%);
+    background: linear-gradient(90deg, rgba(190,128,13,0.8799894957983193) 0%, rgba(242,169,90,1) 33%, rgba(255, 175, 2, 0.541));
     overflow: hidden;
 }
 
@@ -31,6 +28,7 @@ main{
     text-align: center;
     vertical-align: middle;
     font-weight: 900;
+    cursor: pointer;
 }
 
 .main-flex{
@@ -38,7 +36,7 @@ main{
 }
 
 .flex-right{
-    margin-top: 170px;
+    margin-top: 105px;
     display: block;
     width: 782px;
     margin-left: 100px;
@@ -167,14 +165,25 @@ label{
     flex-direction: column;
 }
 
-.reset, #submitbtn{
-    width: 125px;
-    font-size: 22px;
-    height: 39px;
+.reset, #submitbtn, .close{
+    width: 164px;
+    font-size: 29px;
+    height: 56px;
     font-family: fantasy;
     background: tomato;
     margin: auto;
     margin-top: 25px;
+    font-weight: 900;
+}
+
+.close{
+    width: 79px;
+    font-size: 19px;
+    height: 34px;
+    font-family: fantasy;
+    background: tomato;
+    margin: auto;
+    font-weight: 900;
 }
 
 .message{
@@ -197,17 +206,42 @@ label{
 
 .balance {
     position: absolute;
-    top: 0px;
-    right: -1px;
+    top: -3px;
+    right: -3px;
     font-size: 26px;
     font-family: fantasy;
     width: 175px;
     height: 72px;
     border: 2px solid black;
     text-align: center;
-    background-color: white;
+    font-weight: 900;
+    background-image: linear-gradient(to left, rgba(252, 176, 252, 0.719), rgba(159, 89, 209, 0.575), rgba(114, 219, 219, 0.719), rgba(132, 255, 132, 0.726), rgba(255, 255, 107, 0.575), rgba(255, 166, 0, 0.651), rgba(255, 98, 98, 0.651));
 }
 
 .€ {
     color: red;
+}
+
+
+.helpmsg {
+    display: none;
+    position: absolute;
+    width: 717px;
+    height: 252px;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.5); 
+    top: 35%;
+    right: 25%;
+    text-align: center;
+    z-index: 99999;
+}
+
+footer {
+    width: 107%;
+    height: 20px;
+    position: absolute;
+    left: 0px;
+    text-align: center;
+    color: white;
+    background: black;
 }

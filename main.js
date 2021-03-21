@@ -1,4 +1,3 @@
-
 let matchingNums = new Array();
 let matchingStars = new Array();
 
@@ -33,8 +32,7 @@ for(let i = 1; i < 13; i++){
 let submit = document.querySelector('.submitbtn');
 
 $('#submitbtn').on('click', function() {
-    $('.instructions').css('display', 'none');
-    gains = gains - 1;
+    gains = gains - 2;
     randNums.innerText = " ";
     starscont.innerText = " ";
     matchingNums = [];
@@ -70,7 +68,9 @@ $('#submitbtn').on('click', function() {
         }
     }
 
+
     // Log the random NUMBERS to the page
+    $('.instructions').css('display', 'none');
     for(let x = 0; x < nums.length; x++){
         randNums.innerHTML += `<div class="ball"><p>${nums[x]} </p></div>`;
     }
@@ -126,7 +126,7 @@ $('#submitbtn').on('click', function() {
     };
 
     let rightnums = matchingNums.length * 2;
-    let rightstars = matchingStars.length * 5;
+    let rightstars = matchingStars.length * 3;
     gains = gains + (rightstars + rightnums);
     console.log(rightnums);
 
@@ -134,33 +134,12 @@ $('#submitbtn').on('click', function() {
         gains = gains + 1000;
     }
     
-    // let gains = (rightnums * 5) + (rightstars * 10);
-
-    // switch(rightnums, rightstars) {
-    //     case  1, 0:
-    //         $(".message").append(`<div class='sucess'> You guessed ${rightnums} number! Won 5€;`);
-    //         gains = +gains + 1;
-    //         break;
-
-    //     case 2:
-    //         $(".message").append(`<div class='sucess'> You guessed ${rightnums} numbers! Won 10€;`);
-    //         gains = +gains + 5;
-    //         break;
-        
-    //     case 3:
-    //         $(".message").append(`<div class='sucess'> You guessed ${rightnums} numbers! Won 15€;`);7
-    //         break;
-        
-    //     case 4:
-    //         $(".message").append(`<div class='sucess'> You guessed ${rightnums} numbers! Won 20€;`);7
-    //         break;
-        
-    //     case 5:
-    //         $(".message").append(`<div class='sucess'> You guessed ${rightnums} numbers! Won 25€;`);7
-    //         break;
-    // }
-
     $('.accountbalance').html(`<div class="balance">Balance: <br> <span class="€">${gains}</span> Dogecoins</div>`);
+
+    if(gains < 0){
+        alert("You don't have enought credits. Please refresh the page!" );
+        return;
+    }
 }); 
 
 
@@ -169,10 +148,17 @@ $('#submitbtn').on('click', function() {
 // NUMBERS SELECTED
 let pickednums = new Array();
 $(".inputNumbers").on("click", "label", function(e) {
+    
   var getValue = $(this).attr("for");
   var goToParent = $(this).parents(".inputNumbers");
   var getInputRadio = goToParent.find("input[id = " + getValue + "]");
   let numberid = getInputRadio.attr("id");
+  let clicklednum = Number(numberid);
+    if(pickednums.includes(clicklednum)){
+        alert('you cant choose that number');
+        return;
+    };
+
   pickednums.push(parseInt(numberid));
 //   $(this).css("background", "white");
 //   $(this).text("❌")
@@ -185,6 +171,7 @@ $(".inputNumbers").on("click", "label", function(e) {
     $(this).css("background", "tomato");
     console.log(pickednums)
   }
+
   else if(pickednums.length > 6){
   alert("You can only pick 5 numbers!");
   pickednums = pickednums.slice(0, -1)
@@ -193,35 +180,33 @@ $(".inputNumbers").on("click", "label", function(e) {
 });
 
 
+
+
 let pickedstars = new Array();
 $(".inputStars").on("click", "label", function(e) {
   var getValue = $(this).attr("for");
   var goToParent = $(this).parents(".inputStars");
   var getInputRadio = goToParent.find("input[id = " + getValue + "]");
   let starid = getInputRadio.attr("id");
-  if(!pickedstars.includes($(this))){
-    pickedstars.push(parseInt(starid))
+  let clickledstar = Number(starid);
+  console.log(starid)
+  if(pickedstars.includes(clickledstar)){
+    alert("You already picked that star, insert another one!");
+    matchingStars.pop();
+    return;
+    }
+    pickedstars.push(parseInt(starid));
     $(this).addClass("checked");
-}
-else {
-    alert("You already picked that number, insert another one!");
-  }
 
-  
-//   $(this).text("⭐")
-  console.log(pickedstars)
-
-  if(pickedstars.length > 2){
-    alert("You can only pick 2 stars!");
-    pickedstars = pickedstars.slice(0, -1)
-    $(this).css("background", "white");
     
+
+  if(pickedstars.length >= 3){
+    alert("You can only pick 2 stars!");
+    pickedstars.pop();
+    $(this).css("background", "tomato");
+    return;
   }
-  else if(pickedstars.length > 3){
-  alert("You can only pick 2 stars!");
-  pickedstars = pickedstars.slice(0, -1)
-  $(this).css("background", "white");
-  }
+  console.log(pickedstars)
 });
 
 $(".reset").on("click", () => {
@@ -229,19 +214,30 @@ $(".reset").on("click", () => {
     pickedstars = [];
     $("label").removeClass("checked");
     $("number").css("background-image", "none");
-    $("number").css("color", "black");
+    $("number").css("color", "tomato");
 
     
 });
 
-// if ($('.instructions').show()){
-//     $('.numbers').hide();
-// }
+$('.help').on('click', () => {
+    $('.helpmsg').show();
+    $('.helpmsg').html(`<div class="instructions">Welcome to the Dogecoin Billions!<br> Please pick 5 numbers and 2 stars to start the game. <br><br> Each number you guessed will give you 3 Dogecoins and the stars gives you 3 Dogecoins! <br>If you can guess all numbers and stars I'll give you 5€! <br>Good Luck! </div><br><button class="close">Close</button>`);
+    $('.main-flex').css('filter', 'blur(8px)');
+    $('.close').on('click', () => {
+        $('.helpmsg').hide();
+        $('.main-flex').css('filter', 'blur(0px)');
+    });
+});
 
-// else if ($('.numbers').show()){
-//     $('.instructions').hide();
-// }
-
-// // else {
+setInterval(() => {
     
-// }
+    console.log(windoww)
+}
+, 100);
+
+let windoww = window.screen.width;
+
+$('body').width(windoww);
+
+
+
